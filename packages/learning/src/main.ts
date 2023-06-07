@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 
@@ -15,6 +15,7 @@ async function fastify_bootstrap(): Promise<INestApplication>{
 async function bootstrap() {
   const app = await express_bootstrap();
   //const app = await fastify_bootstrap();
+  app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
 }
 bootstrap();
